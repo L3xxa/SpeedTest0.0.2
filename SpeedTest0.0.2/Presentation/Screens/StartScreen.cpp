@@ -1,13 +1,12 @@
 ﻿#include "StartScreen.h"
 #include <iostream>
 
-StartScreen::StartScreen(sf::Font& font, sf::RenderWindow& window) :
-    window(window),
-    font(font),
-    startButton(font, "Start", sf::Vector2f(650, 750), sf::Vector2f(200, 60)),
-    statisticsButton(font, "Statistics", sf::Vector2f(895, 750), sf::Vector2f(200, 60)),
-    exitButton(font, "Exit", sf::Vector2f(1140, 750), sf::Vector2f(200, 60)),
-    startButtonPressed(false) {
+StartScreen::StartScreen(sf::Font& font, sf::RenderWindow& window)
+    : window(window), font(font),
+      startButton(font, "Start", sf::Vector2f(650, 750), sf::Vector2f(200, 60)),
+      statisticsButton(font, "Statistics", sf::Vector2f(895, 750), sf::Vector2f(200, 60)),
+      exitButton(font, "Exit", sf::Vector2f(1140, 750), sf::Vector2f(200, 60)),
+      startButtonPressed(false) {
     startButton.setColors(sf::Color::Black, sf::Color(255, 255, 255, 150));
     statisticsButton.setColors(sf::Color::Black, sf::Color(255, 255, 255, 150));
     exitButton.setColors(sf::Color::Black, sf::Color(255, 255, 255, 150));
@@ -56,6 +55,4 @@ bool StartScreen::handleEvent(const sf::Event& event) {
     return false;
 }
 
-bool StartScreen::isStartButtonPressed() const {
-    return startButtonPressed;
-}
+bool StartScreen::isStartButtonPressed() const { return startButtonPressed; }

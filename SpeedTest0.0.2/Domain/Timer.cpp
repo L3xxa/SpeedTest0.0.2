@@ -4,7 +4,7 @@ Timer::Timer(float initialDuration) : duration(initialDuration), remainingTime(i
 
 void Timer::start() {
     if (!isRunning) {
-        clock.restart();
+        clock.restart(); // Скидаємо clock при старті
         isRunning = true;
     }
 }
@@ -16,22 +16,18 @@ void Timer::stop() {
 float Timer::getRemainingTime() const {
     if (isRunning) {
         float elapsed = clock.getElapsedTime().asSeconds();
-        float remaining = remainingTime - elapsed;
-        return (remaining < 0.0f) ? 0.0f : remaining; // Обмежуємо від’ємні значення
+        float remaining = duration - elapsed; // Використовуємо duration замість remainingTime
+        return (remaining < 0.0f) ? 0.0f : remaining;
     }
-    return remainingTime;
+    return remainingTime; // Повертаємо залишковий час, якщо таймер зупинений
 }
 
 bool Timer::isFinished() const {
-    bool finished = isRunning && getRemainingTime() <= 0.0f;
-    if (finished) {
-        const_cast<Timer*>(this)->isRunning = false; // Зупиняємо таймер, коли час закінчується
-    }
-    return finished;
+    return isRunning && getRemainingTime() <= 0.0f;
 }
 
 void Timer::reset() {
+    clock.restart();
     remainingTime = duration;
     isRunning = false;
-    clock.restart();
 }

@@ -1,12 +1,8 @@
 ﻿#include "GameScreen.h"
 #include <iostream>
 
-GameScreen::GameScreen(sf::RenderWindow& window, sf::Font& font) :
-    window(window),
-    font(font),
-    timer(60.0f),
-    textManager(),
-    gameOver(false) {
+GameScreen::GameScreen(sf::RenderWindow& window, sf::Font& font, Game& game)
+    : window(window), font(font), game(game) {
     if (!backgroundTexture.loadFromFile("assets/img/BACKGROUND№3 (1).jpg")) {
         std::cout << "Failed to load background image" << std::endl;
     }
@@ -51,13 +47,18 @@ void GameScreen::initialize() {
     mistakeText.setCharacterSize(24);
     mistakeText.setFillColor(sf::Color::Red);
     mistakeText.setPosition(340, 400);
+
+    mistakeBackground.setSize(sf::Vector2f(150, 40));
+    mistakeBackground.setFillColor(sf::Color(255, 255, 255, 150));
+    mistakeBackground.setPosition(330, 395);
+    
 }
 
-std::string wrapText(const std::string& text, const sf::Font& font, unsigned int characterSize, float maxWidth) {
+std::string GameScreen::wrapText(const std::string& text, float maxWidth) const {
     std::string result;
     std::string currentLine;
     std::string currentWord;
-    sf::Text tempText("", font, characterSize);
+    sf::Text tempText("", font, 24);
 
     for (char c : text) {
         if (c == ' ' || c == '\n') {
@@ -78,14 +79,12 @@ std::string wrapText(const std::string& text, const sf::Font& font, unsigned int
         }
     }
 
-    // Додаємо останнє слово
     tempText.setString(currentLine + currentWord);
     if (tempText.getLocalBounds().width > maxWidth) {
         result += currentLine + "\n" + currentWord;
     } else {
         result += currentLine + currentWord;
     }
-
     return result;
 }
 
@@ -98,38 +97,25 @@ void GameScreen::draw() {
     window.draw(inputText);
     window.draw(targetText);
     window.draw(timeText);
+    window.draw(mistakeBackground);
     window.draw(mistakeText);
     window.display();
 }
 
 void GameScreen::update() {
-    // Максимальна ширина — ширина фону мінус відступи
-    float maxWidth = inputTextBackground.getSize().x - 20; // 20 — відступи з боків
-
-    // Форматуємо цільовий текст
-    std::string wrappedTarget = wrapText(textManager.getTargetText(), font, 24, maxWidth);
-    targetText.setString(wrappedTarget);
-
-    // Форматуємо введений текст
-    std::string wrappedInput = wrapText(textManager.getInputText(), font, 24, maxWidth);
-    inputText.setString(wrappedInput);
-
-    // Оновлюємо таймер і помилки
-    timeText.setString(std::to_string(static_cast<int>(timer.getRemainingTime())));
-    mistakeText.setString("Mistakes: " + std::to_string(textManager.getMistakes()));
+    float maxWidth = inputTextBackground.getSize().x - 20;
+    inputText.setString(wrapText(game.getInputText(), maxWidth));
+    targetText.setString(wrapText(game.getTargetText(), maxWidth));
+    timeText.setString(std::to_string(static_cast<int>(game.getRemainingTime())));
+    mistakeText.setString("Mistakes: " + std::to_string(game.getMistakes()));
 }
 
 void GameScreen::handleEvent(const sf::Event& event) {
     if (event.type == sf::Event::TextEntered) {
-        textManager.addInput(event.text.unicode);
+        game.handleInput(event.text.unicode);
     }
 }
 
-void GameScreen::startGame() {
-    textManager.reset(); // Завантажуємо новий текст
-    timer.start();
-}
-
 bool GameScreen::isGameOver() const {
-    return timer.isFinished();
+    return game.isFinished();
 }

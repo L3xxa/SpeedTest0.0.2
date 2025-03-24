@@ -1,31 +1,30 @@
 ﻿#pragma once
 #include <SFML/Graphics.hpp>
-#include "../../Domain/Timer.h"
-#include "../../Domain/TextManager.h"
+#include "../../Domain/Game.h"
 
 class GameScreen {
 private:
     sf::RenderWindow& window;
     sf::Font& font;
-    Timer timer;
-    TextManager textManager;
+    Game& game;
     sf::Text inputText;
     sf::Text targetText;
     sf::Text timeText;
     sf::Text mistakeText;
+    sf::RectangleShape mistakeBackground;
     sf::RectangleShape inputTextBackground;
     sf::RectangleShape outputTextBackground;
     sf::CircleShape timeBackground;
     sf::Texture backgroundTexture;
     sf::Sprite backgroundSprite;
-    bool gameOver; // Додаємо змінну для стану
+
+    std::string wrapText(const std::string& text, float maxWidth) const;
 
 public:
-    GameScreen(sf::RenderWindow& window, sf::Font& font);
+    GameScreen(sf::RenderWindow& window, sf::Font& font, Game& game);
     void initialize();
     void draw();
     void update();
     void handleEvent(const sf::Event& event);
-    void startGame();
     bool isGameOver() const;
 };

@@ -20,6 +20,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Data\FileManager.cpp" />
+    <ClCompile Include="Data\ScoreRepository.cpp" />
+    <ClCompile Include="Domain\Game.cpp" />
     <ClCompile Include="Domain\TextManager.cpp" />
     <ClCompile Include="Domain\Timer.cpp" />
     <ClCompile Include="main.cpp" />
@@ -30,11 +33,9 @@
     <ClCompile Include="Presentation\UI\Button.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Data\" />
-    <Folder Include="Presentation\Input\" />
-    <Folder Include="Presentation\Rendering\" />
-  </ItemGroup>
-  <ItemGroup>
+    <ClInclude Include="Data\FileManager.h" />
+    <ClInclude Include="Data\ScoreRepository.h" />
+    <ClInclude Include="Domain\Game.h" />
     <ClInclude Include="Domain\TextManager.h" />
     <ClInclude Include="Domain\Timer.h" />
     <ClInclude Include="Presentation\ScreenManager.h" />
@@ -51,8 +52,10 @@
     <Content Include="assets\font\BOOKOSB.TTF" />
     <Content Include="assets\font\BOOKOSBI.TTF" />
     <Content Include="assets\font\BOOKOSI.TTF" />
+    <Content Include="assets\font\SegUIVar.ttf" />
     <Content Include="assets\img\BACKGROUND_VIBE_2.jpg" />
     <Content Include="assets\img\BACKGROUND№3 (1).jpg" />
+    <Content Include="assets\img\Palm.jpg" />
     <Content Include="assets\sound\button-198922_1.wav" />
     <Content Include="assets\sound\error5mp3_1.wav" />
     <Content Include="assets\sound\rate_1.wav" />

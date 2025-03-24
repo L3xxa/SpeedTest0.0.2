@@ -4,12 +4,12 @@
 class Timer {
 private:
     sf::Clock clock;
-    float duration;         // Початкова тривалість (62 секунди)
-    float remainingTime;    // Залишок часу
+    float duration;
+    float remainingTime;
     bool isRunning;
 
 public:
-    Timer(float initialDuration = 62.0f);
+    Timer(float initialDuration = 60.0f);
     void start();
     void stop();
     float getRemainingTime() const;

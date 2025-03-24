@@ -1,14 +1,16 @@
 ﻿#include "ScreenManager.h"
 #include <iostream>
 
-ScreenManager::ScreenManager() :
-    window(sf::VideoMode(1920, 1080), "Speed Typing Test", sf::Style::Fullscreen),
-    font(),
-    startScreen(font, window),
-    gameScreen(window, font),
-    endScreen(window, font),
-    currentScreen(ScreenType::Start) {
-    if (!font.loadFromFile("assets/font/BOOKOS.TTF")) {
+ScreenManager::ScreenManager()
+    : window(sf::VideoMode(1920, 1080), "Speed Typing Test", sf::Style::Fullscreen),
+      font(),
+      startScreen(font, window),
+      game(),
+      gameScreen(window, font, game),
+      scoreRepo("scores.txt"),
+      endScreen(window, font, scoreRepo),
+      currentScreen(ScreenType::Start) {
+    if (!font.loadFromFile("assets/font/SegUIVar.ttf")) {
         std::cerr << "Error loading font" << std::endl;
         exit(-1);
     }
@@ -30,21 +32,25 @@ void ScreenManager::run() {
                 }
                 if (startScreen.isStartButtonPressed()) {
                     switchScreen(ScreenType::Game);
-                    gameScreen.startGame();
-                }
+                    game.start();
+                } 
             } else if (currentScreen == ScreenType::Game) {
                 gameScreen.handleEvent(event);
-                if (gameScreen.isGameOver()) {
-                    switchScreen(ScreenType::End); // Перехід на EndScreen при завершенні гри
-                }
+            } else if (currentScreen == ScreenType::End) {
+                endScreen.handleEvent(event, *this); // Додано обробку подій для EndScreen
             }
         }
 
         if (currentScreen == ScreenType::Start) {
             startScreen.draw();
         } else if (currentScreen == ScreenType::Game) {
+            game.update();
             gameScreen.update();
             gameScreen.draw();
+            if (gameScreen.isGameOver()) {
+                endScreen.setStats(game.calculateWPM(), game.calculateAccuracy(), game.getMistakes(), static_cast<int>(game.getRemainingTime()));
+                switchScreen(ScreenType::End);
+            }
         } else if (currentScreen == ScreenType::End) {
             endScreen.draw();
         }

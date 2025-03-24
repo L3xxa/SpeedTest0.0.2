@@ -6,13 +6,13 @@ private:
     std::string targetText;
     std::string inputText;
     int mistakes;
-    std::string loadRandomText(); // Нова функція для зчитування рандомного тексту
+    std::string loadRandomText();
 
 public:
     TextManager();
     void setTargetText(const std::string& text);
     void addInput(char c);
-    void deleteLastInput(); 
+    void deleteLastInput();
     int getMistakes() const;
     std::string getInputText() const;
     std::string getTargetText() const;
