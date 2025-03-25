@@ -30,6 +30,7 @@
     <ClCompile Include="Presentation\Screens\EndScreen.cpp" />
     <ClCompile Include="Presentation\Screens\GameScreen.cpp" />
     <ClCompile Include="Presentation\Screens\StartScreen.cpp" />
+    <ClCompile Include="Presentation\Screens\StatScreen.cpp" />
     <ClCompile Include="Presentation\UI\Button.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -42,6 +43,7 @@
     <ClInclude Include="Presentation\Screens\EndScreen.h" />
     <ClInclude Include="Presentation\Screens\GameScreen.h" />
     <ClInclude Include="Presentation\Screens\StartScreen.h" />
+    <ClInclude Include="Presentation\Screens\StatScreen.h" />
     <ClInclude Include="Presentation\UI\Button.h" />
   </ItemGroup>
   <ItemGroup>

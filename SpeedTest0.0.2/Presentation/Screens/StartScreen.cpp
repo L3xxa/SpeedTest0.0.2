@@ -55,4 +55,14 @@ bool StartScreen::handleEvent(const sf::Event& event) {
     return false;
 }
 
-bool StartScreen::isStartButtonPressed() const { return startButtonPressed; }
+bool StartScreen::isStartButtonPressed() const { 
+    return startButtonPressed; 
+}
+
+bool StartScreen::isStatisticsButtonPressed(const sf::Event& event) {
+    if (event.type == sf::Event::MouseButtonPressed) {
+        sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+        return statisticsButton.isClicked(mousePos);
+    }
+    return false;
+}

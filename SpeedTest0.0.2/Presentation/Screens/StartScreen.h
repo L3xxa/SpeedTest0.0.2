@@ -7,7 +7,7 @@ private:
     sf::RenderWindow& window;
     sf::Font& font;
     Button startButton;
-    Button statisticsButton;
+    Button statisticsButton; // Залишаємо приватною
     Button exitButton;
     sf::RectangleShape menuBar;
     sf::Texture backgroundTexture;
@@ -20,4 +20,5 @@ public:
     void draw();
     bool handleEvent(const sf::Event& event);
     bool isStartButtonPressed() const;
+    bool isStatisticsButtonPressed(const sf::Event& event); // Новий метод
 };

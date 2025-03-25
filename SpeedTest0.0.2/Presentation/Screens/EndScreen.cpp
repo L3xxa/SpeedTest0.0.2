@@ -3,8 +3,8 @@
 #include <iostream>
 #include <sstream>
 
-EndScreen::EndScreen(sf::RenderWindow& window, sf::Font& font, ScoreRepository& scoreRepo)
-    : window(window), font(font), scoreRepo(scoreRepo),
+EndScreen::EndScreen(sf::RenderWindow& window, sf::Font& font, ScoreRepository& scoreRepo, Game& game)
+    : window(window), font(font), scoreRepo(scoreRepo), game(game),
       restartButton(font, "Restart", sf::Vector2f(700, 830), sf::Vector2f(200, 60)),
       exitButton(font, "Exit", sf::Vector2f(1025, 830), sf::Vector2f(200, 60)) {
     if (!backgroundTexture.loadFromFile("assets/img/BACKGROUND№3 (1).jpg")) {
@@ -74,7 +74,7 @@ std::string EndScreen::calculatePoints(float wpm, float accuracy, int mistakes, 
     if (score >= 4) return "Bad";
     else if (score == 3) return "Norm";
     else if (score == 2) return "Good";
-    else return "Very good";
+    else return "Perfect";
 }
 
 void EndScreen::setStats(float wpm, float accuracy, int mistakes, int times) {
@@ -91,7 +91,9 @@ void EndScreen::handleEvent(const sf::Event& event, ScreenManager& screenManager
         sf::Vector2i mousePos = sf::Mouse::getPosition(window);
         if (restartButton.isClicked(mousePos)) {
             restartButton.playClickSound();
+            game.reset();                         // Скидаємо стан гри
             screenManager.switchScreen(ScreenType::Game); // Переключаємо на GameScreen
+            game.start();                         // Запускаємо гру
         }
         if (exitButton.isClicked(mousePos)) {
             exitButton.playClickSound();

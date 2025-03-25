@@ -3,6 +3,7 @@
 #include "../../Data/ScoreRepository.h"
 #include "../UI/Button.h"
 
+class Game;
 class ScreenManager; // Попереднє оголошення для handleEvent
 
 class EndScreen {
@@ -10,6 +11,7 @@ private:
     sf::RenderWindow& window;
     sf::Font& font;
     ScoreRepository& scoreRepo;
+    Game& game;
     sf::Text endTitle;
     sf::Text statsText;
     sf::RectangleShape statsBackground;
@@ -23,7 +25,7 @@ private:
     std::string calculatePoints(float wpm, float accuracy, int mistakes, int times);
 
 public:
-    EndScreen(sf::RenderWindow& window, sf::Font& font, ScoreRepository& scoreRepo);
+    EndScreen(sf::RenderWindow& window, sf::Font& font, ScoreRepository& scoreRepo, Game& game);
     void initialize();
     void draw();
     void handleEvent(const sf::Event& event, ScreenManager& screenManager); 

@@ -8,7 +8,8 @@ ScreenManager::ScreenManager()
       game(),
       gameScreen(window, font, game),
       scoreRepo("scores.txt"),
-      endScreen(window, font, scoreRepo),
+      endScreen(window, font, scoreRepo, game),
+      statScreen(window, font, scoreRepo),
       currentScreen(ScreenType::Start) {
     if (!font.loadFromFile("assets/font/SegUIVar.ttf")) {
         std::cerr << "Error loading font" << std::endl;
@@ -17,6 +18,7 @@ ScreenManager::ScreenManager()
     startScreen.initialize();
     gameScreen.initialize();
     endScreen.initialize();
+    statScreen.initialize();
 }
 
 void ScreenManager::run() {
@@ -31,13 +33,19 @@ void ScreenManager::run() {
                     window.close();
                 }
                 if (startScreen.isStartButtonPressed()) {
+                    game.reset();
                     switchScreen(ScreenType::Game);
                     game.start();
-                } 
+                }
+                if (startScreen.isStatisticsButtonPressed(event)) { // Використовуємо новий метод
+                    switchScreen(ScreenType::Stats);
+                }
             } else if (currentScreen == ScreenType::Game) {
                 gameScreen.handleEvent(event);
             } else if (currentScreen == ScreenType::End) {
-                endScreen.handleEvent(event, *this); // Додано обробку подій для EndScreen
+                endScreen.handleEvent(event, *this);
+            } else if (currentScreen == ScreenType::Stats) {
+                statScreen.handleEvent(event, *this);
             }
         }
 
@@ -53,6 +61,8 @@ void ScreenManager::run() {
             }
         } else if (currentScreen == ScreenType::End) {
             endScreen.draw();
+        } else if (currentScreen == ScreenType::Stats) {
+            statScreen.draw();
         }
     }
 }

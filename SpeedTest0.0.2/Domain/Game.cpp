@@ -1,6 +1,6 @@
 ﻿#include "Game.h"
 
-Game::Game() : timer(20.0f), textManager(), isRunning(false) {}
+Game::Game() : timer(1.0f), textManager(), isRunning(false) {}
 
 void Game::start() {
     textManager.reset();

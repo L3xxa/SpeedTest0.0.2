@@ -21,6 +21,7 @@ void ScoreRepository::addScore(float wpm, float accuracy, int mistakes, int time
     }
 }
 
+
 std::vector<Score> ScoreRepository::getScores() const { return scores; }
 
 Score ScoreRepository::getBestScore() const {

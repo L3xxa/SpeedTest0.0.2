@@ -3,10 +3,11 @@
 #include "Screens/StartScreen.h"
 #include "Screens/GameScreen.h"
 #include "Screens/EndScreen.h"
+#include "Screens/StatScreen.h" // Додаємо новий екран
 #include "../../Domain/Game.h"
 #include "../../Data/ScoreRepository.h"
 
-enum class ScreenType { Start, Game, End };
+enum class ScreenType { Start, Game, End, Stats }; // Додаємо Stats
 
 class ScreenManager {
 private:
@@ -17,6 +18,7 @@ private:
     GameScreen gameScreen;
     ScoreRepository scoreRepo;
     EndScreen endScreen;
+    StatScreen statScreen; // Новий екран
     ScreenType currentScreen;
 
 public:
