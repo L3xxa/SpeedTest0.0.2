@@ -7,12 +7,13 @@ ScoreRepository::ScoreRepository(const std::string& filename) : filename(filenam
     loadFromFile();
 }
 
+// Додає новий результат до репозиторію та зберігає його у файл
 void ScoreRepository::addScore(float wpm, float accuracy, int mistakes, int times, const std::string& points) {
     time_t now = time(0);
     char dateBuffer[26];
     if (ctime_s(dateBuffer, sizeof(dateBuffer), &now) == 0) {
         std::string date(dateBuffer);
-        date.pop_back(); // Видаляємо \n
+        date.pop_back();
         scores.push_back({wpm, accuracy, mistakes, times, points, date});
         saveToFile();
     } else {
@@ -22,8 +23,10 @@ void ScoreRepository::addScore(float wpm, float accuracy, int mistakes, int time
 }
 
 
+// Повертає всі результати у репозиторії
 std::vector<Score> ScoreRepository::getScores() const { return scores; }
 
+// Повертає найкращий результат за кількістю слів за хвилину (wpm)
 Score ScoreRepository::getBestScore() const {
     if (scores.empty()) return {0, 0, 0, 0, "bad", ""};
     Score best = scores[0];
@@ -33,16 +36,18 @@ Score ScoreRepository::getBestScore() const {
     return best;
 }
 
+// Зберігає всі результати у файл
 void ScoreRepository::saveToFile() {
     FileManager fm;
     std::stringstream ss;
     for (const auto& score : scores) {
-        ss << score.wpm << " " << score.accuracy << " " << score.mistakes << " " 
+        ss << score.wpm << " " << score.accuracy << " " << score.mistakes << " "
            << score.times << " " << score.points << " " << score.date << "\n";
     }
     fm.writeFile(filename, ss.str());
 }
 
+// Завантажує всі результати з файлу
 void ScoreRepository::loadFromFile() {
     FileManager fm;
     std::string content = fm.readFile(filename);

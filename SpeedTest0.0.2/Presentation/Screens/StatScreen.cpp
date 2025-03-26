@@ -24,6 +24,7 @@ StatScreen::StatScreen(sf::RenderWindow& window, sf::Font& font, ScoreRepository
     backButton.setColors(sf::Color(0,0,0), sf::Color(207, 209, 209, 200));
 }
 
+// Метод для ініціалізації елементів екрану
 void StatScreen::initialize() {
     sf::Vector2u windowSize = window.getSize();
     float tableWidth = windowSize.x * 0.8f;
@@ -38,6 +39,7 @@ void StatScreen::initialize() {
     updateTable();
 }
 
+// Метод для оновлення таблиці
 void StatScreen::updateTable() {
     cells.clear();
     texts.clear();
@@ -75,12 +77,12 @@ void StatScreen::updateTable() {
                     case 4: text.setString(score.points); break;
                     case 5: {
                         // Форматуємо дату у форматі MM/DD/YYYY
-                        std::tm tm = {};
+                       std::tm tm = {};
                         std::istringstream ss(score.date);
-                        ss >> std::get_time(&tm, "%a %b %d %Y"); // Парсимо строку в структуру tm
+                        ss >> std::get_time(&tm, "%a %b %d %H:%M:%S"); // Парсимо строку в структуру tm
                         
                         std::ostringstream formattedDate;
-                        formattedDate << std::put_time(&tm, "%m/%d/%Y"); // Форматуємо як MM/DD/YYYY
+                        formattedDate << std::put_time(&tm, "%m/%d %H:%M:%S"); // Форматуємо як MM/DD HH:MM:SS
                         text.setString(formattedDate.str()); // Виводимо відформатовану дату
                         break;
                     }
@@ -94,6 +96,7 @@ void StatScreen::updateTable() {
     std::cout << "Rows: " << rows << ", Row Height: " << ROW_HEIGHT << ", Table Height: " << tableBackground.getSize().y << ", Max Scroll: " << maxScroll << std::endl;
 }
 
+// Метод для відображення елементів екрану
 void StatScreen::draw() {
     window.clear();
     window.draw(backgroundSprite);
@@ -138,6 +141,7 @@ void StatScreen::draw() {
     window.display();
 }
 
+// Метод для обробки подій
 void StatScreen::handleEvent(const sf::Event& event, ScreenManager& screenManager) {
     if (event.type == sf::Event::MouseButtonPressed) {
         sf::Vector2i mousePos = sf::Mouse::getPosition(window);

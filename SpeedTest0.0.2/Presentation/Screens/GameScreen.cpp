@@ -15,6 +15,7 @@ GameScreen::GameScreen(sf::RenderWindow& window, sf::Font& font, Game& game)
     );
 }
 
+// Метод для ініціалізації елементів екрану
 void GameScreen::initialize() {
     inputTextBackground.setSize(sf::Vector2f(1250, 350));
     inputTextBackground.setFillColor(sf::Color(0, 0, 0, 150));
@@ -54,6 +55,7 @@ void GameScreen::initialize() {
     
 }
 
+// Метод для обгортання тексту
 std::string GameScreen::wrapText(const std::string& text, float maxWidth) const {
     std::string result;
     std::string currentLine;
@@ -88,6 +90,7 @@ std::string GameScreen::wrapText(const std::string& text, float maxWidth) const 
     return result;
 }
 
+// Метод для відображення елементів екрану
 void GameScreen::draw() {
     window.clear(sf::Color::Black);
     window.draw(backgroundSprite);
@@ -102,6 +105,7 @@ void GameScreen::draw() {
     window.display();
 }
 
+// Метод для оновлення елементів екрану
 void GameScreen::update() {
     float maxWidth = inputTextBackground.getSize().x - 20;
     inputText.setString(wrapText(game.getInputText(), maxWidth));
@@ -110,12 +114,14 @@ void GameScreen::update() {
     mistakeText.setString("Mistakes: " + std::to_string(game.getMistakes()));
 }
 
+// Метод для обробки подій
 void GameScreen::handleEvent(const sf::Event& event) {
     if (event.type == sf::Event::TextEntered) {
         game.handleInput(event.text.unicode);
     }
 }
 
+// Метод для перевірки закінчення гри
 bool GameScreen::isGameOver() const {
     return game.isFinished();
 }

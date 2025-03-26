@@ -8,6 +8,7 @@ TextManager::TextManager() : mistakes(0) {
     targetText = loadRandomText();
 }
 
+// Завантажує випадковий текст з файлу
 std::string TextManager::loadRandomText() {
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -18,7 +19,10 @@ std::string TextManager::loadRandomText() {
 
     if (!file.is_open()) {
         std::cerr << "Failed to open file: " << filename << std::endl;
-        return "Kyiv is a large political, industrial and cultural centre..."; // Твій запасний текст
+        return "Kyiv is a large political, industrial, and cultural center of Ukraine."
+               " It has a rich history, beautiful architecture, and a vibrant atmosphere."
+               " The city plays a crucial role in the country’s economy, education, and governance, "
+               "attracting tourists and professionals from all over the world."; // Запасний текст
     }
 
     std::stringstream buffer;
@@ -27,12 +31,14 @@ std::string TextManager::loadRandomText() {
     return buffer.str();
 }
 
+// Встановлює цільовий текст та скидає введений текст і кількість помилок
 void TextManager::setTargetText(const std::string& text) {
     targetText = text;
     inputText.clear();
     mistakes = 0;
 }
 
+// Додає введений символ до введеного тексту та перевіряє на помилки
 void TextManager::addInput(char c) {
     if (c == 8 && !inputText.empty()) {
         deleteLastInput();
@@ -51,17 +57,23 @@ void TextManager::addInput(char c) {
         }
     }
 }
-
+// Видаляє останній введений символ
 void TextManager::deleteLastInput() {
     if (!inputText.empty()) {
         inputText.pop_back();
     }
 }
 
+// Повертає кількість помилок
 int TextManager::getMistakes() const { return mistakes; }
+
+// Повертає введений текст
 std::string TextManager::getInputText() const { return inputText; }
+
+// Повертає цільовий текст
 std::string TextManager::getTargetText() const { return targetText; }
 
+// Скидає цільовий текст, введений текст та кількість помилок
 void TextManager::reset() {
     targetText = loadRandomText();
     inputText.clear();

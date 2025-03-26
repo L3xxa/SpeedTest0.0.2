@@ -1,4 +1,5 @@
-﻿#pragma once
+﻿#ifndef SCOREREPOSITORY_H
+#define SCOREREPOSITORY_H
 #include <string>
 #include <vector>
 
@@ -7,7 +8,7 @@ struct Score {
     float accuracy;    // Точність (%)
     int mistakes;      // Кількість помилок
     int times;         // Залишковий час (у секундах)
-    std::string points; // Оцінка: "bad", "norm", "good", "very good"
+    std::string points; // Оцінка: "bad", "norm", "good", "excellent"
     std::string date;   // Дата і час гри
 };
 
@@ -24,3 +25,5 @@ public:
     std::vector<Score> getScores() const;
     Score getBestScore() const;
 };
+
+#endif // SCOREREPOSITORY_H

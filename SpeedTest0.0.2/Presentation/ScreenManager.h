@@ -1,28 +1,32 @@
-﻿#pragma once
+﻿#ifndef SCREENMANAGER_H_
+#define SCREENMANAGER_H_
+
 #include <SFML/Graphics.hpp>
 #include "Screens/StartScreen.h"
 #include "Screens/GameScreen.h"
 #include "Screens/EndScreen.h"
-#include "Screens/StatScreen.h" // Додаємо новий екран
+#include "Screens/StatScreen.h"
 #include "../../Domain/Game.h"
 #include "../../Data/ScoreRepository.h"
 
-enum class ScreenType { Start, Game, End, Stats }; // Додаємо Stats
+enum class ScreenType { Start, Game, End, Stats };
 
 class ScreenManager {
 private:
-    sf::RenderWindow window;
-    sf::Font font;
-    StartScreen startScreen;
-    Game game;
-    GameScreen gameScreen;
-    ScoreRepository scoreRepo;
-    EndScreen endScreen;
-    StatScreen statScreen; // Новий екран
-    ScreenType currentScreen;
-
-public:
-    ScreenManager();
-    void run();
-    void switchScreen(ScreenType screen);
+    sf::RenderWindow window;       // Вікно програми
+    sf::Font font;                 // Шрифт
+    StartScreen startScreen;       // Екран старту
+    Game game;                     // Гра
+    GameScreen gameScreen;         // Екран гри
+    ScoreRepository scoreRepo;     // Репозиторій результатів
+    EndScreen endScreen;           // Екран завершення
+    StatScreen statScreen;         // Екран статистики
+    ScreenType currentScreen;      // Поточний екран
+    
+    public:
+    ScreenManager();               // Конструктор
+    void run();                    // Метод для запуску головного циклу програми
+    void switchScreen(ScreenType screen); // Метод для переключення екрану
 };
+
+#endif // SCREENMANAGER_H_

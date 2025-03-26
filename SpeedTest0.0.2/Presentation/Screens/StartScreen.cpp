@@ -23,12 +23,14 @@ StartScreen::StartScreen(sf::Font& font, sf::RenderWindow& window)
     );
 }
 
+// Метод для ініціалізації елементів екрану
 void StartScreen::initialize() {
     menuBar.setSize(sf::Vector2f(750, 135));
     menuBar.setFillColor(sf::Color(0, 0, 0, 200));
     menuBar.setPosition(620, 720);
 }
 
+// Метод для відображення елементів екрану
 void StartScreen::draw() {
     window.clear();
     window.draw(backgroundSprite);
@@ -39,6 +41,7 @@ void StartScreen::draw() {
     window.display();
 }
 
+// Метод для обробки подій
 bool StartScreen::handleEvent(const sf::Event& event) {
     if (event.type == sf::Event::MouseButtonPressed) {
         sf::Vector2i mousePos = sf::Mouse::getPosition(window);
@@ -55,10 +58,12 @@ bool StartScreen::handleEvent(const sf::Event& event) {
     return false;
 }
 
+// Метод для перевірки натискання кнопки "Statistics"
 bool StartScreen::isStartButtonPressed() const { 
     return startButtonPressed; 
 }
 
+// Метод для перевірки натискання кнопки "Statistics"
 bool StartScreen::isStatisticsButtonPressed(const sf::Event& event) {
     if (event.type == sf::Event::MouseButtonPressed) {
         sf::Vector2i mousePos = sf::Mouse::getPosition(window);

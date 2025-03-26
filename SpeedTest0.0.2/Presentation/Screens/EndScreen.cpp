@@ -17,6 +17,7 @@ EndScreen::EndScreen(sf::RenderWindow& window, sf::Font& font, ScoreRepository& 
     exitButton.setColors(sf::Color::White, sf::Color(255, 50, 50, 200));
 }
 
+// Метод для встановлення фону на весь екран
 void EndScreen::setBackgroundFullScreen() {
     sf::Vector2u windowSize = window.getSize();
     sf::Vector2u textureSize = backgroundTexture.getSize();
@@ -31,6 +32,7 @@ void EndScreen::setBackgroundFullScreen() {
     backgroundSprite.setPosition(windowSize.x / 2.0f, windowSize.y / 2.0f);
 }
 
+// Метод для ініціалізації елементів екрану
 void EndScreen::initialize() {
     endTitle.setFont(font);
     endTitle.setString("Game Over");
@@ -52,6 +54,7 @@ void EndScreen::initialize() {
     backgroundMenu.setPosition(window.getSize().x / 2 - 400, window.getSize().x / 2 - 150);
 }
 
+// Метод для відображення елементів екрану
 void EndScreen::draw() {
     window.clear();
     window.draw(backgroundSprite);
@@ -64,6 +67,7 @@ void EndScreen::draw() {
     window.display();
 }
 
+// Метод для визначення рівня гравця
 std::string EndScreen::calculatePoints(float wpm, float accuracy, int mistakes, int times) {
     int score = 0;
     if (wpm < 20) score += 2;
@@ -77,6 +81,7 @@ std::string EndScreen::calculatePoints(float wpm, float accuracy, int mistakes, 
     else return "Perfect";
 }
 
+// Метод для встановлення статистики гравця
 void EndScreen::setStats(float wpm, float accuracy, int mistakes, int times) {
     std::string points = calculatePoints(wpm, accuracy, mistakes, times);
     std::stringstream ss;
@@ -86,6 +91,7 @@ void EndScreen::setStats(float wpm, float accuracy, int mistakes, int times) {
     scoreRepo.addScore(wpm, accuracy, mistakes, times, points);
 }
 
+// Метод для обробки подій
 void EndScreen::handleEvent(const sf::Event& event, ScreenManager& screenManager) {
     if (event.type == sf::Event::MouseButtonPressed) {
         sf::Vector2i mousePos = sf::Mouse::getPosition(window);

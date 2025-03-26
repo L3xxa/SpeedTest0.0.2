@@ -21,6 +21,7 @@ ScreenManager::ScreenManager()
     statScreen.initialize();
 }
 
+// Метод для запуску головного циклу програми
 void ScreenManager::run() {
     while (window.isOpen()) {
         sf::Event event;
@@ -67,6 +68,7 @@ void ScreenManager::run() {
     }
 }
 
+// Метод для переключення екрану
 void ScreenManager::switchScreen(ScreenType screen) {
     currentScreen = screen;
 }
