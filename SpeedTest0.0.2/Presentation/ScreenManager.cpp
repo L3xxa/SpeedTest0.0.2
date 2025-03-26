@@ -15,6 +15,14 @@ ScreenManager::ScreenManager()
         std::cerr << "Error loading font" << std::endl;
         exit(-1);
     }
+
+    sf::Image icon;
+    if (!icon.loadFromFile("assets/img/Game_logo (1).jpg")) {
+        std::cerr << "Error loading icon" << std::endl;
+    } else {
+        window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+    }
+    
     startScreen.initialize();
     gameScreen.initialize();
     endScreen.initialize();
