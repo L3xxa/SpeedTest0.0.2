@@ -21,7 +21,7 @@ StatScreen::StatScreen(sf::RenderWindow& window, sf::Font& font, ScoreRepository
         static_cast<float>(windowSize.x) / backgroundTexture.getSize().x,
         static_cast<float>(windowSize.y) / backgroundTexture.getSize().y
     );
-    backButton.setColors(sf::Color(0,0,0), sf::Color(207, 209, 209, 200));
+    backButton.setColors(sf::Color::White, sf::Color(255, 50, 50, 200));
 }
 
 // Метод для ініціалізації елементів екрану

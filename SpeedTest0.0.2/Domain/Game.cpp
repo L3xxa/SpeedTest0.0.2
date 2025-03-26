@@ -1,6 +1,6 @@
 ﻿#include "Game.h"
 
-Game::Game() : timer(1.0f), textManager(), isRunning(false) {}
+Game::Game() : timer(61.0f), textManager(), isRunning(false) {}
 
 // Починає гру, скидаючи таймер і текстовий менеджер, та встановлює isRunning в true
 void Game::start() {

@@ -7,9 +7,9 @@ StartScreen::StartScreen(sf::Font& font, sf::RenderWindow& window)
       statisticsButton(font, "Statistics", sf::Vector2f(895, 750), sf::Vector2f(200, 60)),
       exitButton(font, "Exit", sf::Vector2f(1140, 750), sf::Vector2f(200, 60)),
       startButtonPressed(false) {
-    startButton.setColors(sf::Color::Black, sf::Color(255, 255, 255, 150));
-    statisticsButton.setColors(sf::Color::Black, sf::Color(255, 255, 255, 150));
-    exitButton.setColors(sf::Color::Black, sf::Color(255, 255, 255, 150));
+    startButton.setColors(sf::Color::White, sf::Color(0, 255, 0, 200));
+    statisticsButton.setColors(sf::Color::White, sf::Color(255, 255, 0, 200));
+    exitButton.setColors(sf::Color::White, sf::Color(255, 50, 50, 200));
 
     if (!backgroundTexture.loadFromFile("assets/img/BACKGROUND_VIBE_2.jpg")) {
         std::cerr << "Failed to load background image" << std::endl;
