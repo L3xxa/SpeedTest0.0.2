@@ -54,11 +54,11 @@ void TextManager::addInput(char c) {
                 char prevTarget = targetText[inputText.size() - 2];
                 if (prevInput != prevTarget) mistakes--;
             }
-        }
+        }  
     }
 }
 // Видаляє останній введений символ
-void TextManager::deleteLastInput() {
+void TextManager::deleteLastInput() { 
     if (!inputText.empty()) {
         inputText.pop_back();
     }

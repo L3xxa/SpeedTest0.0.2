@@ -2,7 +2,7 @@
 #include <iostream>
 
 ScreenManager::ScreenManager()
-    : window(sf::VideoMode(1920, 1080), "Speed Typing Test", sf::Style::Fullscreen),
+    : window(sf::VideoMode(1920, 1080), "Speed Typing Test", sf::Style::Default),
       font(),
       startScreen(font, window),
       game(),
@@ -45,8 +45,9 @@ void ScreenManager::run() {
                     game.reset();
                     switchScreen(ScreenType::Game);
                     game.start();
+                    gameScreen.playTypingMusic(); // Починаємо відтворювати музику при старті гри
                 }
-                if (startScreen.isStatisticsButtonPressed(event)) { // Використовуємо новий метод
+                if (startScreen.isStatisticsButtonPressed(event)) {
                     switchScreen(ScreenType::Stats);
                 }
             } else if (currentScreen == ScreenType::Game) {
@@ -65,6 +66,7 @@ void ScreenManager::run() {
             gameScreen.update();
             gameScreen.draw();
             if (gameScreen.isGameOver()) {
+                gameScreen.stopTypingMusic(); // Зупиняємо музику, коли гра закінчується
                 endScreen.setStats(game.calculateWPM(), game.calculateAccuracy(), game.getMistakes(), static_cast<int>(game.getRemainingTime()));
                 switchScreen(ScreenType::End);
             }
@@ -78,5 +80,9 @@ void ScreenManager::run() {
 
 // Метод для переключення екрану
 void ScreenManager::switchScreen(ScreenType screen) {
+    // Зупиняємо музику при перемиканні на будь-який екран, крім Game
+    if (screen != ScreenType::Game) {
+        gameScreen.stopTypingMusic();
+    }
     currentScreen = screen;
 }

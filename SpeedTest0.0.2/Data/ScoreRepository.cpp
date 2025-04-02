@@ -48,8 +48,8 @@ void ScoreRepository::saveToFile() {
 }
 
 // Завантажує всі результати з файлу
-void ScoreRepository::loadFromFile() {
-    FileManager fm;
+void ScoreRepository::loadFromFile() { 
+    FileManager fm; 
     std::string content = fm.readFile(filename);
     std::stringstream ss(content);
     scores.clear();

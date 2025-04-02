@@ -13,6 +13,13 @@ GameScreen::GameScreen(sf::RenderWindow& window, sf::Font& font, Game& game)
         static_cast<float>(windowSize.x) / textureSize.x,
         static_cast<float>(windowSize.y) / textureSize.y
     );
+
+    // Завантажуємо музику
+    if (!typingMusic.openFromFile("assets/sound/energetic-chiptune-video-game-music-platformer-8-bit-318348.wav")) {
+        std::cout << "Failed to load typing music" << std::endl;
+    }
+    typingMusic.setLoop(true); // Зациклюємо музику, щоб вона грала безперервно
+    typingMusic.setVolume(40.f); // Встановлюємо гучність (0-100), можна налаштувати
 }
 
 // Метод для ініціалізації елементів екрану
@@ -52,7 +59,6 @@ void GameScreen::initialize() {
     mistakeBackground.setSize(sf::Vector2f(150, 40));
     mistakeBackground.setFillColor(sf::Color(255, 255, 255, 150));
     mistakeBackground.setPosition(330, 395);
-    
 }
 
 // Метод для обгортання тексту
@@ -112,11 +118,18 @@ void GameScreen::update() {
     targetText.setString(wrapText(game.getTargetText(), maxWidth));
     timeText.setString(std::to_string(static_cast<int>(game.getRemainingTime())));
     mistakeText.setString("Mistakes: " + std::to_string(game.getMistakes()));
+
+    // Зупиняємо музику, якщо гра закінчилася
+    if (isGameOver()) {
+        stopTypingMusic();
+    }
 }
 
 // Метод для обробки подій
 void GameScreen::handleEvent(const sf::Event& event) {
     if (event.type == sf::Event::TextEntered) {
+        // Відтворюємо музику, коли користувач вводить текст
+        playTypingMusic();
         game.handleInput(event.text.unicode);
     }
 }
@@ -124,4 +137,16 @@ void GameScreen::handleEvent(const sf::Event& event) {
 // Метод для перевірки закінчення гри
 bool GameScreen::isGameOver() const {
     return game.isFinished();
+}
+
+// Метод для відтворення музики
+void GameScreen::playTypingMusic() {
+    if (typingMusic.getStatus() != sf::Music::Playing) {
+        typingMusic.play();
+    }
+}
+
+// Метод для зупинки музики
+void GameScreen::stopTypingMusic() {
+    typingMusic.stop();
 }
